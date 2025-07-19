@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>洛阳行 - 沉浸式魏晋洛阳漫游体验</title>
+    <link href="https://fonts.googleapis.com/css2?family=Ma+Shan+Zheng&family=Noto+Serif+SC&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<div class="game-wrapper">
+    <header>
+        <h1>洛阳行</h1>
+    </header>
+    <div class="container">
+        <div class="map-container">
+            <div id="map-grid" class="map-grid">
+                <!-- 地图单元格将由JS动态生成 -->
+            </div>
+            <div class="legend">
+                <div class="legend-item"><div class="legend-color imperial-color"></div>宫室宗庙</div>
+                <div class="legend-item"><div class="legend-color important-color"></div>历史地标</div>
+                <div class="legend-item"><div class="legend-color normal-color"></div>普通地点</div>
+            </div>
+        </div>
+        
+        <div class="game-container">
+            <div class="status-bar">
+                <div class="time-status-container">
+                    <div id="time-display" class="time-display">--</div>
+                    <button id="pass-month-btn">转月</button>
+                </div>
+                <div class="player-stats">
+                    <div class="stat">身份: <strong id="stat-identity">--</strong></div>
+                    <div class="stat">财富: <strong id="stat-money">--</strong></div>
+                    <div class="stat">位置: <strong id="stat-location">--</strong></div>
+                </div>
+            </div>
+            
+            <div id="event-log" class="event-log">
+                <!-- 日志条目将由JS动态生成 -->
+            </div>
+            
+            <div id="event-panel" style="display: none;">
+                <h2 id="event-title"></h2>
+                <p id="event-description"></p>
+                <div id="event-options"></div>
+            </div>
+
+            <div class="controls" id="main-controls">
+                <div class="control-group">
+                    <h2>行程规划</h2>
+                    <select id="destination-select">
+                        <!-- 目的地将由JS动态生成 -->
+                    </select>
+                    <select id="transport-select">
+                        <option value="walk">步行</option>
+                        <option value="oxcart">牛车</option>
+                        <option value="horse">骑马</option>
+                    </select>
+                    <div class="travel-info" id="travel-info">
+                        预估行程: <span class="highlight">--</span>
+                    </div>
+                    <button id="travel-btn">启程</button>
+                </div>
+                
+                <div class="control-group">
+                    <h2>城域行动</h2>
+                    <div id="local-actions">
+                        <!-- 地点互动选项将由JS动态生成 -->
+                    </div>
+                    
+                    <div class="location-info" id="location-info">
+                        请先在地图上选择一个地点或从上方规划行程。
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="js/locations.js"></script>
+<script src="js/events.js"></script>
+<script src="js/script.js"></script>
+
+</body>
+</html>

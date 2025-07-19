@@ -1,0 +1,322 @@
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+    font-family: 'Noto Serif SC', serif;
+    background: #f5ecd1;
+    color: #5a3a2c;
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+.game-wrapper {
+    width: 1400px;
+    max-width: 95%;
+}
+header {
+    text-align: center;
+    margin-bottom: 20px;
+}
+h1 {
+    font-family: 'Ma Shan Zheng', cursive;
+    font-size: 3rem;
+    color: #8c2f2f;
+    text-shadow: 2px 2px 3px rgba(0,0,0,0.2);
+}
+.container {
+    display: grid;
+    grid-template-columns: 1fr 1.2fr;
+    gap: 20px;
+    height: 80vh;
+}
+.map-container {
+    background: rgba(255, 255, 240, 0.8);
+    border: 2px solid #8c5e2f;
+    border-radius: 5px;
+    padding: 15px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+    display: flex;
+    flex-direction: column;
+}
+.map-grid {
+    width: 620px;   /* 你可以根据实际页面调整 */
+    height: 750px;  /* 你可以根据实际页面调整 */
+    display: grid;
+    grid-template-columns: repeat(16, 1fr); /* 修改为16列以匹配数据 */
+    grid-template-rows: repeat(12, 1fr);    /* 修改为12行以匹配数据 */
+    gap: 2px;
+    background: #e8d5a8;
+    border: 1px solid #9f7648;
+    padding: 10px;
+    flex-grow: 1;
+    position: relative; /* 建立堆叠上下文 */
+}
+.map-cell {
+    background: #d1bc91;
+    border: 1px solid #9f7648;
+    border-radius: 3px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-size: 0.9rem;
+    text-align: center;
+    padding: 2px;
+    position: relative;
+    z-index: 3;  /* 提高z-index确保在线条上方 */
+}
+
+.map-cell.vertical-text {
+    writing-mode: vertical-lr;
+    text-orientation: mixed;
+}
+
+.map-cell:hover {
+    background: #c9b380;
+    transform: scale(1.05);
+    z-index: 10;
+}
+.map-cell.important {
+    background: #c6a56d;
+    font-weight: bold;
+    color: #704a36;
+}
+.map-cell.imperial {
+    background: #8c2f2f;
+    color: #f5ecd1;
+}
+
+.map-line {
+    position: absolute;
+    z-index: 1; /* 改为1，确保在地点下方 */
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+}
+
+/* 宫墙样式 */
+.wall-line {
+    background: #5a4d41;
+    box-shadow: 0 0 4px rgba(0,0,0,0.3);
+}
+
+.wall-line.vertical {
+    width: 4px;
+}
+
+.wall-line.horizontal {
+    height: 4px;
+}
+
+/* 道路样式 */
+.road-line {
+    background: #8c7355;
+    opacity: 0.6;
+}
+
+.road-line.vertical {
+    width: 6px;
+}
+
+.road-line.horizontal {
+    height: 6px;
+}
+
+/* 悬停效果 */
+.map-cell:hover ~ .map-line {
+    opacity: 1;
+    box-shadow: 0 0 6px rgba(140, 94, 47, 0.4);
+}
+
+.map-cell.river {
+    background: #aaccff; /* 淡蓝色背景 */
+    border-color: #88bbdd;
+    cursor: default; /* 默认鼠标样式 */
+    z-index: 1; /* 置于底层 */
+}
+
+.map-cell.river:hover {
+    transform: none; /* 移除悬浮效果 */
+    background: #aaccff; /* 保持颜色不变 */
+}
+
+.map-cell.current {
+    border: 2px solid #ffdd00;
+    box-shadow: 0 0 10px #ffdd00;
+}
+.map-cell.disabled {
+    background: #a9a9a9;
+    cursor: not-allowed;
+    color: #707070;
+}
+.map-cell.under-construction {
+    background: #999999 !important;
+    color: #e0e0e0;
+    cursor: not-allowed;
+}
+.map-cell.not-built {
+    display: none;
+}
+.legend {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    margin-top: 10px;
+    font-size: 0.8rem;
+    padding-left: 10px;
+}
+.legend-item { display: flex; align-items: center; gap: 5px; }
+.legend-color { width: 15px; height: 15px; border-radius: 3px; border: 1px solid #8c5e2f; }
+.imperial-color { background: #8c2f2f; }
+.important-color { background: #c6a56d; }
+.normal-color { background: #d1bc91; }
+.game-container {
+    background: rgba(255, 255, 240, 0.85);
+    border: 2px solid #8c5e2f;
+    border-radius: 5px;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+.status-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+    padding-bottom: 15px;
+    border-bottom: 1px dashed #8c5e2f;
+    flex-wrap: wrap;
+    gap: 15px; /* 为元素之间添加一些间距 */
+}
+
+.time-status-container {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-grow: 1; /* 占据可用空间 */
+}
+
+.time-display {
+    font-size: 1.1rem;
+    font-weight: bold;
+    color: #8c2f2f;
+    background: rgba(140, 94, 47, 0.1);
+    padding: 5px 12px;
+    border-radius: 20px;
+    white-space: nowrap; /* 防止时间换行 */
+}
+
+.player-stats { 
+    display: flex; 
+    gap: 10px; 
+    flex-wrap: wrap; 
+    justify-content: flex-end; /* 右对齐 */
+}
+.stat {
+    background: rgba(140, 94, 47, 0.1);
+    padding: 5px 10px;
+    border-radius: 10px;
+    font-size: 0.9rem;
+}
+.event-log {
+    background: #f8f4e9;
+    border: 1px solid #d0b994;
+    border-radius: 5px;
+    padding: 15px;
+    height: 400px; /* 固定高度 */
+    overflow-y: auto;
+    font-family: 'Noto Serif SC', serif;
+    margin-bottom: 15px;
+    line-height: 1.6;
+    box-shadow: inset 0 0 5px rgba(0,0,0,0.1);
+}
+.event-entry {
+    margin-bottom: 10px;
+    padding-bottom: 10px;
+    border-bottom: 1px dashed #d0b994;
+}
+.event-entry:last-child { border-bottom: none; }
+.event-time { color: #8c5e2f; font-size: 0.9rem; font-weight: bold; }
+.highlight { color: #8c2f2c; font-weight: bold; }
+.controls {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+    margin-top: auto;
+}
+.control-group {
+    background: rgba(140, 94, 47, 0.05);
+    padding: 15px;
+    border-radius: 5px;
+    border: 1px solid #d0b994;
+}
+.control-group h2 {
+    font-size: 1.3rem;
+    color: #8c2f2f;
+    margin-bottom: 10px;
+    font-family: 'Ma Shan Zheng', cursive;
+    border-bottom: 1px solid #d0b994;
+    padding-bottom: 5px;
+}
+select, button {
+    font-family: 'Noto Serif SC', serif;
+    font-size: 1rem;
+    padding: 8px 12px;
+    border: 1px solid #9f7648;
+    border-radius: 4px;
+    background: #f5ecd1;
+    color: #5a3a2c;
+    margin: 5px 0;
+    width: 100%;
+}
+button {
+    background: #8c5e2f;
+    color: #f5ecd1;
+    cursor: pointer;
+    font-weight: bold;
+    transition: all 0.2s;
+}
+button:hover:not(:disabled) { background: #704a36; transform: translateY(-2px); }
+button:disabled { background: #a9a9a9; cursor: not-allowed; }
+
+/* 为转月按钮专门设置样式 */
+#pass-month-btn {
+    background: #a8937a;
+    color: #f5ecd1;
+    padding: 4px 12px; /* 使用内边距控制大小 */
+    font-size: 0.9rem; /* 恢复合适的字体大小 */
+    margin: 0; /* 移除外边距 */
+    flex-shrink: 0; /* 防止按钮被压缩 */
+    display: flex; /* 使用flex布局来居中 */
+    align-items: center;
+    justify-content: center;
+    line-height: 1; /* 确保文字垂直居中 */
+    width: auto; /* 移除固定宽度 */
+    height: auto; /* 移除固定高度 */
+}
+
+#pass-month-btn:hover:not(:disabled) {
+    background: #8a765f;
+}
+
+.secondary-btn {
+    background: #a8937a;
+    color: #f5ecd1;
+    margin-top: 10px;
+}
+
+.secondary-btn:hover:not(:disabled) {
+    background: #8a765f;
+}
+
+.location-info, .travel-info {
+    margin-top: 10px;
+    font-size: 0.95rem;
+    line-height: 1.5;
+    background: rgba(140, 94, 47, 0.05);
+    padding: 8px;
+    border-radius: 4px;
+}
