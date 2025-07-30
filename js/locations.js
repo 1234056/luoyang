@@ -252,6 +252,7 @@ const locations = {
                 ]
             }
         ]},
+    },
     palaceGrid: [15, 12],
     harem: {
         '北宫南门': { name: '北宫南门', gridArea: '10 / 4 / 11 / 6', type: 'imperial', description: '由此可离开北宫，返回宫城南部区域。', actions: [
