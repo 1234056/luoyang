@@ -252,21 +252,6 @@ const locations = {
                 ]
             }
         ]},
-        // --- 宫墙标识 ---
-        '宫墙-南北纵贯-西': { name: '', start: [2, 1], end: [15, 1], type: 'wall', interactive: false }, // 西侧宫墙
-        '宫墙-南北纵贯-东1': { name: '', start: [2, 9], end: [13, 9], type: 'wall', interactive: false }, // 东侧宫墙
-        '宫墙-南北纵贯-东2': { name: '', start: [2, 12], end: [15, 12], type: 'wall', interactive: false }, // 东侧宫墙
-        '宫墙-东西横贯-南': { name: '', start: [16, 1], end: [16, 11], type: 'wall', interactive: false }, // 南墙
-        '宫墙-东西横贯-北': { name: '', start: [2, 1], end: [2, 11], type: 'wall', interactive: false }, // 北墙
-        '宫墙-东西横贯-止车门': { name: '', start: [14, 1], end: [14, 8], type: 'wall', interactive: false }, // 止车门
-        '宫墙-东西横贯-朱华门': { name: '', start: [5, 4], end: [5, 5], type: 'wall', interactive: false }, // 朱华门
-        // --- 道路系统 ---
-        'road_1': { type: 'road', start: [1, 5], end: [15, 5], interactive: false }, // 阊阖门中轴线
-        'road_2': { type: 'road', start: [14, 1], end: [14, 11],offset: 'up', interactive: false }, // 东西掖门道路
-        'road_3': { type: 'road', start: [10, 1],offset: 'up', end: [10, 9], interactive: false }, // 神虎门到云龙门
-        'road_4': { type: 'road', start: [1, 10], end: [15, 10], interactive: false }, // 司马门内南北向道路
-        'road_5': { type: 'road', start: [2, 1],offset: 'up', end: [2, 12], interactive: false }, // 千秋门到万春门
-    },
     palaceGrid: [15, 12],
     harem: {
         '北宫南门': { name: '北宫南门', gridArea: '10 / 4 / 11 / 6', type: 'imperial', description: '由此可离开北宫，返回宫城南部区域。', actions: [
